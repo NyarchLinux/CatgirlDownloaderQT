@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Catgirl Downloader
+GenericName=Image Browser
+Comment=Browse and download anime images from multiple sources
+Exec=catgirldownloaderqt
+Icon=moe.nyarchlinux.catgirldownloader
+Categories=Qt;KDE;Utility;Graphics;
+StartupNotify=true
+X-KDE-FormFactor=desktop;tablet;handset;

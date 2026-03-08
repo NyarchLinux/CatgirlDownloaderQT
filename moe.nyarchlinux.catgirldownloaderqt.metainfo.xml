@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>moe.nyarchlinux.catgirldownloaderqt</id>
+  <name>Catgirl Downloader</name>
+  <summary>Browse and save anime-style images from multiple sources</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <developer id="moe.nyarchlinux">
+    <name>Nyarch Linux</name>
+  </developer>
+  <description>
+    <p>Catgirl Downloader is a desktop application for browsing and saving anime-style images from multiple online sources including nekos.moe, waifu.im, and Danbooru.</p>
+    <p>Built with Kirigami for seamless KDE Plasma integration, it features NSFW filtering, automatic image reload, Danbooru tag search, and easy one-click saving.</p>
+  </description>
+  <url type="homepage">https://nyarchlinux.moe</url>
+  <launchable type="desktop-id">moe.nyarchlinux.catgirldownloaderqt.desktop</launchable>
+  <provides>
+    <binary>catgirldownloaderqt</binary>
+  </provides>
+  <releases>
+    <release version="0.1.0" date="2026-03-06">
+      <description>
+        <p>Initial release of Catgirl Downloader for KDE Plasma (Qt/Kirigami port)</p>
+      </description>
+    </release>
+  </releases>
+  <content_rating type="oars-1.1" />
+</component>

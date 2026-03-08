@@ -1,0 +1,2 @@
+[console_scripts]
+catgirldownloaderqt = catgirldownloaderqt.app:main

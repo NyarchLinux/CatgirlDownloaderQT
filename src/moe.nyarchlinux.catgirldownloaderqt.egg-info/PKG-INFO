@@ -1,0 +1,15 @@
+Metadata-Version: 2.4
+Name: moe.nyarchlinux.catgirldownloaderqt
+Version: 0.1.0
+Summary: Catgirl Downloader - Browse and save anime images from multiple sources
+Author: Nyarch Linux
+License: GPL-3.0-or-later
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Environment :: X11 Applications :: Qt
+Classifier: Intended Audience :: End Users/Desktop
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: requests
+Dynamic: license-file

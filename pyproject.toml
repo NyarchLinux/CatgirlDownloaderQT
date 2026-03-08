@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "moe.nyarchlinux.catgirldownloaderqt"
+version = "0.1.0"
+description = "Catgirl Downloader - Browse and save anime images from multiple sources"
+readme = "README.md"
+license = { text = "GPL-3.0-or-later" }
+requires-python = ">=3.10"
+authors = [
+  { name = "Nyarch Linux" }
+]
+dependencies = [
+  "requests",
+]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+  "Environment :: X11 Applications :: Qt",
+  "Intended Audience :: End Users/Desktop"
+]
+
+[project.scripts]
+catgirldownloaderqt = "catgirldownloaderqt.app:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+catgirldownloaderqt = ["qml/*.qml"]
+
+[tool.setuptools.data-files]
+"share/applications" = ["moe.nyarchlinux.catgirldownloaderqt.desktop"]
+"share/metainfo" = ["moe.nyarchlinux.catgirldownloaderqt.metainfo.xml"]
+"share/icons/hicolor/scalable/apps" = ["moe.nyarchlinux.catgirldownloaderqt.svg"]
