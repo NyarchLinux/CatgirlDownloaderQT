@@ -39,6 +39,8 @@ Kirigami.Dialog {
                     property var field: modelData
 
                     Loader {
+                        id: fieldLoader
+                        property var fieldData: field
                         Layout.fillWidth: true
                         sourceComponent: {
                             if (field.type === "text")
@@ -68,10 +70,14 @@ Kirigami.Dialog {
         id: textFieldComponent
 
         Controls.TextField {
-            Kirigami.FormData.label: field.label + ":"
-            text: backend.getSourceSetting(sourceSettingsDialog.sourceIndex, field.key)
-            placeholderText: field.placeholder || ""
-            onTextEdited: backend.setSourceSetting(sourceSettingsDialog.sourceIndex, field.key, text)
+            Kirigami.FormData.label: (parent && parent.fieldData ? parent.fieldData.label : "") + ":"
+            text: parent && parent.fieldData ? backend.getSourceSetting(sourceSettingsDialog.sourceIndex, parent.fieldData.key) : ""
+            placeholderText: parent && parent.fieldData ? (parent.fieldData.placeholder || "") : ""
+            onTextEdited: {
+                if (parent && parent.fieldData) {
+                    backend.setSourceSetting(sourceSettingsDialog.sourceIndex, parent.fieldData.key, text)
+                }
+            }
         }
     }
 
@@ -79,12 +85,16 @@ Kirigami.Dialog {
         id: spinBoxComponent
 
         Controls.SpinBox {
-            Kirigami.FormData.label: field.label + ":"
+            Kirigami.FormData.label: (parent && parent.fieldData ? parent.fieldData.label : "") + ":"
             from: 0
             to: 99999
-            value: parseInt(backend.getSourceSetting(sourceSettingsDialog.sourceIndex, field.key)) || 0
+            value: parent && parent.fieldData ? (parseInt(backend.getSourceSetting(sourceSettingsDialog.sourceIndex, parent.fieldData.key)) || 0) : 0
             editable: true
-            onValueModified: backend.setSourceSetting(sourceSettingsDialog.sourceIndex, field.key, value.toString())
+            onValueModified: {
+                if (parent && parent.fieldData) {
+                    backend.setSourceSetting(sourceSettingsDialog.sourceIndex, parent.fieldData.key, value.toString())
+                }
+            }
         }
     }
 
@@ -92,9 +102,13 @@ Kirigami.Dialog {
         id: switchComponent
 
         Controls.Switch {
-            Kirigami.FormData.label: field.label + ":"
-            checked: backend.getSourceSetting(sourceSettingsDialog.sourceIndex, field.key) === "true"
-            onToggled: backend.setSourceSetting(sourceSettingsDialog.sourceIndex, field.key, checked ? "true" : "false")
+            Kirigami.FormData.label: (parent && parent.fieldData ? parent.fieldData.label : "") + ":"
+            checked: parent && parent.fieldData ? (backend.getSourceSetting(sourceSettingsDialog.sourceIndex, parent.fieldData.key) === "true") : false
+            onToggled: {
+                if (parent && parent.fieldData) {
+                    backend.setSourceSetting(sourceSettingsDialog.sourceIndex, parent.fieldData.key, checked ? "true" : "false")
+                }
+            }
         }
     }
 }
