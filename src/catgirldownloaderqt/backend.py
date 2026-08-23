@@ -198,13 +198,13 @@ class Backend(QObject):
         val = dl.get_setting(key)
         return str(val) if val is not None else ""
 
-    @Slot(int, str, str)
+    @Slot(int, str, str, result=bool)
     def setSourceSetting(self, index, key, value):
         if index < 0 or index >= len(SOURCES):
-            return
+            return False
         source_key = SOURCES[index]["key"]
         dl = self._downloaders[source_key]
-        dl.set_setting(key, value)
+        return bool(dl.set_setting(key, value))
 
     # -- Slots --
 
@@ -314,7 +314,11 @@ class Backend(QObject):
                 )
                 return
 
-            response = requests.get(url, timeout=30)
+            response = requests.get(
+                url,
+                headers=dl.get_request_headers(),
+                timeout=30,
+            )
             response.raise_for_status()
             data = response.content
 

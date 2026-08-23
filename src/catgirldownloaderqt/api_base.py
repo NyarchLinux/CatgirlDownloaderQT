@@ -30,13 +30,17 @@ class BaseDownloaderAPI(ABC):
 
     def get_image(self, url: str) -> Optional[bytes]:
         try:
-            r = requests.get(url, timeout=20)
+            r = requests.get(url, headers=self.get_request_headers(), timeout=20)
             if r.status_code == 200:
                 return r.content
             return None
         except Exception as e:
             print(f"Error downloading image: {e}")
             return None
+
+    def get_request_headers(self) -> dict[str, str]:
+        """Return HTTP headers required by this image source."""
+        return {}
 
     @abstractmethod
     def get_filename_suggestion(

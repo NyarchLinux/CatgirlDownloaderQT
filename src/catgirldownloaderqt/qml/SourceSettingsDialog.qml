@@ -10,10 +10,18 @@ Kirigami.Dialog {
     id: sourceSettingsDialog
 
     property int sourceIndex: -1
+    property bool forbiddenTagsRemoved: false
 
     title: sourceIndex >= 0 ? backend.sourceSettingsTitle(sourceIndex) : ""
     standardButtons: Kirigami.Dialog.Close
     preferredWidth: Kirigami.Units.gridUnit * 24
+
+    onOpened: forbiddenTagsRemoved = false
+    onClosed: {
+        if (forbiddenTagsRemoved) {
+            forbiddenTagsDialog.open()
+        }
+    }
 
     onSourceIndexChanged: {
         if (sourceIndex >= 0) {
@@ -75,7 +83,9 @@ Kirigami.Dialog {
             placeholderText: parent && parent.fieldData ? (parent.fieldData.placeholder || "") : ""
             onTextEdited: {
                 if (parent && parent.fieldData) {
-                    backend.setSourceSetting(sourceSettingsDialog.sourceIndex, parent.fieldData.key, text)
+                    if (backend.setSourceSetting(sourceSettingsDialog.sourceIndex, parent.fieldData.key, text)) {
+                        sourceSettingsDialog.forbiddenTagsRemoved = true
+                    }
                 }
             }
         }
@@ -109,6 +119,21 @@ Kirigami.Dialog {
                     backend.setSourceSetting(sourceSettingsDialog.sourceIndex, parent.fieldData.key, checked ? "true" : "false")
                 }
             }
+        }
+    }
+
+    Kirigami.Dialog {
+        id: forbiddenTagsDialog
+        title: qsTr("Danbooru Settings")
+        standardButtons: Kirigami.Dialog.Ok
+        preferredWidth: Kirigami.Units.gridUnit * 24
+
+        Controls.Label {
+            text: qsTr("Due to a limitation of Danbooru, certain tags have been automatically removed from your settings. For more information, visit <a href=\"https://danbooru.donmai.us/wiki_pages/help:censored_tags\">Danbooru's censored tags help page</a>.")
+            textFormat: Text.RichText
+            wrapMode: Text.WordWrap
+            Layout.fillWidth: true
+            onLinkActivated: function(link) { Qt.openUrlExternally(link) }
         }
     }
 }

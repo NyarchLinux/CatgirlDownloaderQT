@@ -1,4 +1,3 @@
-LICENSE.txt
 MANIFEST.in
 moe.nyarchlinux.catgirldownloaderqt.desktop
 moe.nyarchlinux.catgirldownloaderqt.metainfo.xml
